@@ -3,6 +3,7 @@
   /* Semantic alias (Figma / components) */
   --primary: var(--color-primary);
   --header-height: 68px;
+  --button: #3470ff;
 
   /* Brand & surfaces */
   --color-primary: #3470e6;

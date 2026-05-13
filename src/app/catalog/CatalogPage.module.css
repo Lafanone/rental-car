@@ -1,0 +1,60 @@
+.page {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 84px 120px 80px;
+}
+
+.toolbar {
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 48px 32px;
+}
+
+.state {
+  padding: 48px 16px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--color-text-secondary);
+}
+
+.loadMoreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.loadMore {
+  width: auto;
+  height: 44px;
+  padding: 12px 51px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  background: transparent;
+  border: 1px solid var(--button);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.loadMore:hover:not(:disabled) {
+  border-color: var(--color-primary-hover);
+  color: var(--color-text);
+  background: transparent;
+}
+
+.loadMore:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.loadMore:focus-visible {
+  outline: 2px solid var(--button);
+  outline-offset: 2px;
+}

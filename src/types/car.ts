@@ -36,6 +36,16 @@ export interface FilterParams {
   mileageMax?: number;
 }
 
+/** Request params for `GET /cars` */
+export type GetCarsParams = {
+  page: number;
+  limit: number;
+  brand?: string;
+  rentalPrice?: number;
+  mileageMin?: number;
+  mileageMax?: number;
+};
+
 /** Client-side payload for the “Rent” / booking modal */
 export interface RentalFormData {
   name: string;
