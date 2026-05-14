@@ -27,18 +27,18 @@ export function Filters({ onSearch }: FiltersProps) {
     const fd = new FormData(form);
 
     const brand = String(fd.get("brand") ?? "").trim();
-    const rentalPrice = String(fd.get("rentalPrice") ?? "").trim();
-    const mileageMinRaw = String(fd.get("mileageMin") ?? "").trim();
-    const mileageMaxRaw = String(fd.get("mileageMax") ?? "").trim();
+    const price = String(fd.get("price") ?? "").trim();
+    const minMileageRaw = String(fd.get("minMileage") ?? "").trim();
+    const maxMileageRaw = String(fd.get("maxMileage") ?? "").trim();
 
-    const mileageMin = mileageMinRaw ? Number(mileageMinRaw) : undefined;
-    const mileageMax = mileageMaxRaw ? Number(mileageMaxRaw) : undefined;
+    const minMileage = minMileageRaw ? Number(minMileageRaw) : undefined;
+    const maxMileage = maxMileageRaw ? Number(maxMileageRaw) : undefined;
 
     const next: FilterParams = {};
     if (brand) next.brand = brand;
-    if (rentalPrice) next.rentalPrice = rentalPrice;
-    if (mileageMin != null && !Number.isNaN(mileageMin)) next.mileageMin = mileageMin;
-    if (mileageMax != null && !Number.isNaN(mileageMax)) next.mileageMax = mileageMax;
+    if (price) next.price = price;
+    if (minMileage != null && !Number.isNaN(minMileage)) next.minMileage = minMileage;
+    if (maxMileage != null && !Number.isNaN(maxMileage)) next.maxMileage = maxMileage;
 
     onSearch(next);
   };
@@ -76,14 +76,14 @@ export function Filters({ onSearch }: FiltersProps) {
         <div className={styles.selectWrap}>
           <select
             id="filter-price"
-            name="rentalPrice"
+            name="price"
             className={styles.select}
             defaultValue=""
           >
             <option value="">Choose a price</option>
-            {PRICE_OPTIONS.map((price) => (
-              <option key={price} value={String(price)}>
-                {`$${price}`}
+            {PRICE_OPTIONS.map((p) => (
+              <option key={p} value={String(p)}>
+                {`$${p}`}
               </option>
             ))}
           </select>
@@ -102,7 +102,7 @@ export function Filters({ onSearch }: FiltersProps) {
         >
           <input
             className={styles.mileageInput}
-            name="mileageMin"
+            name="minMileage"
             type="number"
             inputMode="numeric"
             min={0}
@@ -112,7 +112,7 @@ export function Filters({ onSearch }: FiltersProps) {
           <span className={styles.mileageDivider} aria-hidden />
           <input
             className={styles.mileageInput}
-            name="mileageMax"
+            name="maxMileage"
             type="number"
             inputMode="numeric"
             min={0}

@@ -1,4 +1,4 @@
-/** Single car from GoIT Car Rental API */
+/** Single car (normalized for app; API may still return legacy `address`) */
 export interface Car {
   id: string;
   year: number;
@@ -14,7 +14,7 @@ export interface Car {
   /** Daily rental price as returned by API (e.g. `"40"`) */
   rentalPrice: string;
   rentalCompany: string;
-  address: string;
+  location: { city: string; country: string };
   rentalConditions: string[];
   mileage: number;
 }
@@ -28,29 +28,31 @@ export interface CarsResponse {
   totalPages: number;
 }
 
-/** Query params supported by the catalog filter */
+/** Catalog filter state (UI → mapped to query params in `getCars`) */
 export interface FilterParams {
   brand?: string;
-  rentalPrice?: string;
-  mileageMin?: number;
-  mileageMax?: number;
+  price?: string;
+  minMileage?: number;
+  maxMileage?: number;
 }
 
-/** Request params for `GET /cars` */
+/** Request params for `GET /cars` (Swagger-aligned query keys) */
 export type GetCarsParams = {
   page: number;
-  limit: number;
+  perPage: number;
   brand?: string;
-  rentalPrice?: number;
-  mileageMin?: number;
-  mileageMax?: number;
+  price?: number;
+  minMileage?: number;
+  maxMileage?: number;
 };
 
-/** Client-side payload for the “Rent” / booking modal */
-export interface RentalFormData {
+/** POST `/cars/{carId}/booking-requests` body */
+export interface BookingRequestPayload {
   name: string;
   email: string;
-  phone: string;
-  carId: string;
+  bookingDate: string;
   comment?: string;
 }
+
+/** Alias for booking form values */
+export type RentalFormData = BookingRequestPayload;

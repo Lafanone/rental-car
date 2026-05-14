@@ -11,12 +11,12 @@ import styles from "./CatalogPage.module.css";
 function filtersToQuery(filters: FilterParams) {
   return {
     brand: filters.brand,
-    rentalPrice:
-      filters.rentalPrice != null && filters.rentalPrice !== ""
-        ? Number(filters.rentalPrice)
+    price:
+      filters.price != null && filters.price !== ""
+        ? Number(filters.price)
         : undefined,
-    mileageMin: filters.mileageMin,
-    mileageMax: filters.mileageMax,
+    minMileage: filters.minMileage,
+    maxMileage: filters.maxMileage,
   };
 }
 
@@ -29,7 +29,7 @@ export default function CatalogPage() {
     queryFn: ({ pageParam }) =>
       getCars({
         page: pageParam,
-        limit: 12,
+        perPage: 12,
         ...filtersToQuery(filters),
       }),
     getNextPageParam: (lastPage) => {

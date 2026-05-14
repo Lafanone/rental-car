@@ -11,11 +11,9 @@ type CarCardProps = {
   car: Car;
 };
 
-function formatAddressLine(address: string, rentalCompany: string): string {
-  const parts = address.split(",").map((s) => s.trim()).filter(Boolean);
-  const city = parts[1] ?? "";
-  const country = parts[2] ?? "";
-  return [city, country, rentalCompany].filter(Boolean).join(" | ");
+function formatLocationLine(car: Car): string {
+  const { city, country } = car.location;
+  return [city, country, car.rentalCompany].filter(Boolean).join(" | ");
 }
 
 function formatMileage(mileage: number): string {
@@ -25,7 +23,7 @@ function formatMileage(mileage: number): string {
 export function CarCard({ car }: CarCardProps) {
   const [favorite, setFavorite] = useState(false);
 
-  const line1 = formatAddressLine(car.address, car.rentalCompany);
+  const line1 = formatLocationLine(car);
   
   const line2 = [car.type, `${formatMileage(car.mileage)} km`]
     .filter(Boolean)
@@ -69,12 +67,7 @@ export function CarCard({ car }: CarCardProps) {
       <p className={styles.details}>{line1}</p>
       <p className={styles.details}>{line2}</p>
 
-      <Link 
-        href={`/catalog/${car.id}`} 
-        className={styles.readMore}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link href={`/catalog/${car.id}`} className={styles.readMore}>
         Read more
       </Link>
     </article>
