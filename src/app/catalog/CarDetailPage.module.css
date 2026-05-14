@@ -5,22 +5,6 @@
   padding: 84px 120px 80px;
 }
 
-.bookingHeading {
-  margin: 24px 0 0;
-  font-size: 20px;
-  font-weight: var(--font-weight-bold);
-  line-height: 1.2;
-  color: var(--color-text);
-}
-
-.bookingIntro {
-  margin: 8px 0 0;
-  max-width: 640px;
-  font-size: 14px;
-  line-height: 1.43;
-  color: var(--color-text-secondary);
-}
-
 .layout {
   display: grid;
   grid-template-columns: 640px minmax(0, 1fr);
@@ -56,15 +40,14 @@
 }
 
 .infoHeader {
-  margin-bottom: 0;
+  margin-bottom: 68px;
 }
 
 .titleRow {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px 24px;
+  gap: 16px;
 }
 
 .title {
@@ -91,14 +74,14 @@
   margin-top: 12px;
   font-size: 14px;
   line-height: 1.43;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
 }
 
 .metaIcon {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
 }
 
 .metaSep {
@@ -129,7 +112,7 @@
 }
 
 .section {
-  margin-top: 32px;
+  margin-top: 110px;
 }
 
 .sectionTitle {
@@ -140,32 +123,32 @@
   color: var(--color-text);
 }
 
-.badges {
+.badges,
+.specs,
+.accessoriesList {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  list-style: none;
+  flex-direction: column;
+  gap: 16px;
   padding: 0;
   margin: 0;
+  list-style: none;
 }
 
 .badge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: 0;
   font-size: 14px;
   line-height: 1.43;
   color: var(--color-text);
-  background: var(--color-bg-muted);
-  border-radius: var(--radius-md);
 }
 
-.badgeCheck {
+.listIcon {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  color: var(--primary);
+  width: 16px;
+  height: 16px;
+  color: var(--color-text);
 }
 
 .highlight {
@@ -173,33 +156,31 @@
   color: var(--primary);
 }
 
-.specs {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
 .specRow {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 0;
+  gap: 8px;
+  padding: 0;
   font-size: 14px;
   line-height: 1.43;
   color: var(--color-text);
-}
-
-.specRow:first-of-type {
-  padding-top: 0;
 }
 
 .specIcon {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
+  color: var(--color-text);
+}
+
+.specText {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.specLabel {
+  color: var(--color-text);
 }
 
 .specValue {
@@ -207,34 +188,14 @@
   color: var(--color-text);
 }
 
-.accessoriesList {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
 .accessoryItem {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
-  padding-bottom: 16px;
+  padding: 0;
   font-size: 14px;
   line-height: 1.43;
   color: var(--color-text);
-}
-
-.accessoryItem:first-of-type {
-  padding-top: 0;
-}
-
-.checkIcon {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
 }
 
 .back {

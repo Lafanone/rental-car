@@ -5,10 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { BsCheck2 } from "react-icons/bs";
-import { IoCalendarOutline, IoCheckmarkCircleOutline, IoLocationOutline } from "react-icons/io5";
+import {
+  IoCalendarOutline,
+  IoCheckmarkCircle,
+  IoLocationOutline,
+} from "react-icons/io5";
 import { MdOutlineLocalGasStation } from "react-icons/md";
-import { TbCar, TbEngine } from "react-icons/tb";
+import { TbCar, TbSettings } from "react-icons/tb";
 import { getCarById } from "@/api/api";
 import { RentalForm } from "@/components/RentalForm";
 import type { Car } from "@/types/car";
@@ -119,11 +122,7 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
               priority
             />
           </div>
-          <h2 className={styles.bookingHeading}>Book your car now</h2>
-          <p className={styles.bookingIntro}>
-            Stay connected! We are always ready to help you.
-          </p>
-          <RentalForm carId={carId} fieldsOnly />
+          <RentalForm carId={carId} />
         </div>
 
         <div className={styles.rightColumn}>
@@ -151,8 +150,8 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
             <ul className={styles.badges}>
               {conditionLines.map((line) => (
                 <li key={line} className={styles.badge}>
-                  <IoCheckmarkCircleOutline
-                    className={styles.badgeCheck}
+                  <IoCheckmarkCircle
+                    className={styles.listIcon}
                     aria-hidden
                   />
                   <span>{highlightNumbers(line)}</span>
@@ -168,14 +167,14 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
             <ul className={styles.specs}>
               <li className={styles.specRow}>
                 <IoCalendarOutline className={styles.specIcon} aria-hidden />
-                <span className={styles.specLabel}>Year:</span>
-                <span className={styles.specValue}>{car.year}</span>
+                <span className={styles.specText}>
+                  <span className={styles.specLabel}>Year:</span><span className={styles.specValue}>{car.year}</span>
+                </span>
               </li>
               <li className={styles.specRow}>
                 <TbCar className={styles.specIcon} aria-hidden />
-                <span className={styles.specLabel}>Type:</span>
-                <span className={styles.specValue}>
-                  {capitalizeType(car.type)}
+                <span className={styles.specText}>
+                  <span className={styles.specLabel}>Type:</span><span className={styles.specValue}>{capitalizeType(car.type)}</span>
                 </span>
               </li>
               <li className={styles.specRow}>
@@ -183,13 +182,15 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
                   className={styles.specIcon}
                   aria-hidden
                 />
-                <span className={styles.specLabel}>Fuel Consumption:</span>
-                <span className={styles.specValue}>{car.fuelConsumption}</span>
+                <span className={styles.specText}>
+                  <span className={styles.specLabel}>Fuel Consumption:</span><span className={styles.specValue}>{car.fuelConsumption}</span>
+                </span>
               </li>
               <li className={styles.specRow}>
-                <TbEngine className={styles.specIcon} aria-hidden />
-                <span className={styles.specLabel}>Engine Size:</span>
-                <span className={styles.specValue}>{car.engineSize}</span>
+                <TbSettings className={styles.specIcon} aria-hidden />
+                <span className={styles.specText}>
+                  <span className={styles.specLabel}>Engine Size:</span><span className={styles.specValue}>{car.engineSize}</span>
+                </span>
               </li>
             </ul>
           </section>
@@ -201,7 +202,10 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
             <ul className={styles.accessoriesList}>
               {accessoryItems.map((item) => (
                 <li key={item} className={styles.accessoryItem}>
-                  <BsCheck2 className={styles.checkIcon} aria-hidden />
+                  <IoCheckmarkCircle
+                    className={styles.listIcon}
+                    aria-hidden
+                  />
                   <span>{item}</span>
                 </li>
               ))}

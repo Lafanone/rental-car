@@ -1,7 +1,7 @@
 .card {
   width: 100%;
   max-width: 640px;
-  margin-top: 16px;
+  margin-top: 24px;
   padding: 32px;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
@@ -39,7 +39,6 @@
 
 .label {
   font-size: 16px;
-  font-weight: 500;
   font-weight: var(--font-weight-medium);
   line-height: 1.25;
   color: var(--color-text-secondary);
@@ -63,7 +62,7 @@
 
 .textarea {
   min-height: 104px;
-  padding: 12px 20px 56px;;
+  padding: 12px 16px;
   resize: vertical;
 }
 
@@ -81,7 +80,8 @@
 .submit {
   width: 156px;
   height: 44px;
-  margin-top: 8px;
+  margin: 8px auto 0;
+  display: block;
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: var(--font-weight-semibold);
