@@ -15,6 +15,9 @@ export function RentalForm({ carId, fieldsOnly = false }: RentalFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bookingDate, setBookingDate] = useState("");
+  const [bookingDateInputType, setBookingDateInputType] = useState<
+    "text" | "date"
+  >("text");
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,6 +35,7 @@ export function RentalForm({ carId, fieldsOnly = false }: RentalFormProps) {
       setName("");
       setEmail("");
       setBookingDate("");
+      setBookingDateInputType("text");
       setComment("");
     } catch (err) {
       const message = axios.isAxiosError(err)
@@ -84,10 +88,22 @@ export function RentalForm({ carId, fieldsOnly = false }: RentalFormProps) {
           <input
             id="rental-date"
             className={styles.input}
-            type="date"
+            type={bookingDateInputType}
             name="bookingDate"
             value={bookingDate}
             onChange={(e) => setBookingDate(e.target.value)}
+            onFocus={(e) => {
+              (e.target as HTMLInputElement).type = "date";
+              setBookingDateInputType("date");
+            }}
+            onBlur={(e) => {
+              const el = e.target as HTMLInputElement;
+              if (!el.value) {
+                el.type = "text";
+                setBookingDateInputType("text");
+              }
+            }}
+            placeholder="Booking date"
             required
           />
         </div>

@@ -9,13 +9,17 @@
   display: grid;
   grid-template-columns: 640px minmax(0, 1fr);
   gap: 72px;
-  align-items: flex-start;
+  align-items: stretch;
+  min-height: 1040px;
 }
 
 .leftColumn {
+  align-self: start;
   width: 640px;
   height: 1040px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .imageBox {
@@ -25,6 +29,7 @@
   border-radius: 19px;
   overflow: hidden;
   background: var(--color-bg-muted);
+  margin-bottom: 40px;
 }
 
 .image {
@@ -35,12 +40,29 @@
 }
 
 .rightColumn {
-  height: 1020px;
+  align-self: start;
+  margin-top: 20px;
   width: 488px;
+  max-width: 100%;
+  min-height: 1020px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightColumnInner {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rightColumnSpacer {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .infoHeader {
-  margin-bottom: 68px;
+  margin-bottom: 32px;
 }
 
 .titleRow {
@@ -51,10 +73,11 @@
 }
 
 .title {
+  margin: 0;
   font-weight: 600;
   font-size: 24px;
   line-height: 1.33;
-  text-align: center;
+  text-align: left;
   color: var(--color-text);
 }
 
@@ -70,7 +93,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 16px;
+  gap: 4px 8px;
   margin-top: 12px;
   font-size: 14px;
   line-height: 1.43;
@@ -107,12 +130,16 @@
   color: var(--color-text);
 }
 
-.infoHeader + .section {
-  margin-top: 40px;
-}
+/* .infoHeader + .section {
+  margin-top: 68px;
+} */
 
 .section {
-  margin-top: 110px;
+  margin-bottom: 110px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
 }
 
 .sectionTitle {
@@ -144,16 +171,18 @@
   color: var(--color-text);
 }
 
-.listIcon {
+.badgeCheck,
+.checkIcon {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   color: var(--color-text);
 }
 
 .highlight {
-  font-weight: var(--font-weight-bold);
-  color: var(--primary);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 125%;
 }
 
 .specRow {
@@ -196,6 +225,18 @@
   font-size: 16px;
   line-height: 1.25;
   color: var(--color-text);
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 28px;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--primary);
+}
+
+.back:hover {
+  color: var(--color-primary-hover);
 }
 
 .state {

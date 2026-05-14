@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
   IoCalendarOutline,
-  IoCheckmarkCircle,
+  IoCheckmarkCircleOutline,
   IoLocationOutline,
 } from "react-icons/io5";
 import { MdOutlineLocalGasStation } from "react-icons/md";
@@ -124,6 +124,7 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
         </div>
 
         <div className={styles.rightColumn}>
+          <div className={styles.rightColumnInner}>
           <header className={styles.infoHeader}>
             <div className={styles.titleRow}>
               <h1 className={styles.title}>
@@ -148,8 +149,8 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
             <ul className={styles.badges}>
               {conditionLines.map((line) => (
                 <li key={line} className={styles.badge}>
-                  <IoCheckmarkCircle
-                    className={styles.listIcon}
+                  <IoCheckmarkCircleOutline
+                    className={styles.badgeCheck}
                     aria-hidden
                   />
                   <span>{highlightNumbers(line)}</span>
@@ -200,8 +201,8 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
             <ul className={styles.accessoriesList}>
               {accessoryItems.map((item) => (
                 <li key={item} className={styles.accessoryItem}>
-                  <IoCheckmarkCircle
-                    className={styles.listIcon}
+                  <IoCheckmarkCircleOutline
+                    className={styles.checkIcon}
                     aria-hidden
                   />
                   <span>{item}</span>
@@ -209,6 +210,8 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
               ))}
             </ul>
           </section>
+          </div>
+          <div className={styles.rightColumnSpacer} aria-hidden />
         </div>
       </div>
     </div>
