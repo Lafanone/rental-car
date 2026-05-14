@@ -8,13 +8,13 @@
 .layout {
   display: grid;
   grid-template-columns: 640px minmax(0, 1fr);
-  gap: 48px;
+  gap: 72px;
   align-items: flex-start;
 }
 
 .leftColumn {
   width: 640px;
-  max-width: 100%;
+  height: 1040px;
   flex-shrink: 0;
 }
 
@@ -35,8 +35,8 @@
 }
 
 .rightColumn {
-  min-width: 0;
-  max-width: 488px;
+  height: 1020px;
+  width: 488px;
 }
 
 .infoHeader {
@@ -46,15 +46,15 @@
 .titleRow {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 16px;
 }
 
 .title {
-  margin: 0;
+  font-weight: 600;
   font-size: 24px;
-  font-weight: var(--font-weight-bold);
-  line-height: 1.25;
+  line-height: 1.33;
+  text-align: center;
   color: var(--color-text);
 }
 
@@ -91,16 +91,16 @@
 }
 
 .priceHero {
-  margin-top: 16px;
+  margin-top: 32px;
   margin-bottom: 0;
-  font-size: 38px;
-  font-weight: var(--font-weight-bold);
-  line-height: 1.1;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
   color: var(--primary);
 }
 
 .leadDescription {
-  margin-top: 16px;
+  margin-top: 32px;
   font-size: 16px;
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
@@ -193,21 +193,9 @@
   align-items: center;
   gap: 8px;
   padding: 0;
-  font-size: 14px;
-  line-height: 1.43;
+  font-size: 16px;
+  line-height: 1.25;
   color: var(--color-text);
-}
-
-.back {
-  display: inline-block;
-  margin-bottom: 28px;
-  font-size: 14px;
-  font-weight: var(--font-weight-medium);
-  color: var(--primary);
-}
-
-.back:hover {
-  color: var(--color-primary-hover);
 }
 
 .state {

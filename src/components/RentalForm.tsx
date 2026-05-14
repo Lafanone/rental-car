@@ -8,7 +8,6 @@ import styles from "./RentalForm.module.css";
 
 type RentalFormProps = {
   carId: string;
-  /** When true, only the form fields + submit are rendered (no outer title/intro). */
   fieldsOnly?: boolean;
 };
 

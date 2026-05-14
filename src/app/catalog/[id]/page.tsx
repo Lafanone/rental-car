@@ -105,9 +105,7 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
 
   return (
     <div className={styles.page}>
-      <Link href="/catalog" className={styles.back}>
-        ← Back to catalog
-      </Link>
+      
 
       <div className={styles.layout}>
         <div className={styles.leftColumn}>
