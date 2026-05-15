@@ -12,68 +12,127 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-width: 0;
+  min-width: 196px;
 }
 
 .label {
   font-size: 12px;
-  font-weight: var(--font-weight-medium);
   line-height: 1.33;
   font-weight: 400;
   color: var(--color-text-secondary);
 }
 
-.selectWrap {
+/* Custom Select Styles */
+.customSelectWrap {
   position: relative;
   display: block;
+  max-width: 224px;
 }
 
-.select {
-  width: 100%;
-  min-width: 224px;
+.fieldPrice .customSelectWrap {
+  min-width: 160px;
+}
+
+.customSelect {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 204px;
   height: 44px;
-  padding: 0 44px 0 16px;
+  padding: 0 16px;
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: var(--font-weight-regular);
-  line-height: 1.25;
   color: var(--color-text);
   background: var(--color-bg-input);
   border: 1px solid transparent;
   border-radius: var(--radius-md);
-  appearance: none;
   cursor: pointer;
+  user-select: none;
   transition: border-color 0.15s ease;
 }
 
-.select:focus {
+.customSelect.isOpen,
+.customSelect:focus {
   outline: none;
   border-color: var(--color-border-strong);
 }
 
-.select:disabled {
+.customSelect.disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 .selectIcon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
   width: 20px;
   height: 20px;
   color: var(--color-text);
-  pointer-events: none;
+  transition: transform 0.2s ease;
 }
 
-.fieldPrice .select {
-  min-width: 160px;
+.customSelect.isOpen .selectIcon {
+  transform: rotate(180deg);
 }
 
+/* Dropdown List */
+.dropdownList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 272px;
+  margin: 0;
+  padding: 14px 8px 14px 18px;
+  list-style: none;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0px 4px 36px 0px rgba(0, 0, 0, 0.02);
+  overflow-y: auto;
+  z-index: 10;
+}
+
+/* Scrollbar for dropdown */
+.dropdownList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdownList::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 14px 0;
+}
+
+.dropdownList::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+
+/* Dropdown Items (The hover magic happens here) */
+.dropdownItem {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--color-text-secondary);
+  /* Grey by default */
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  background-color: #FFFFFF;
+  /* Forces background to stay white */
+}
+
+/* Only text color changes on hover, background stays white */
+.dropdownItem:hover,
+.dropdownItem[aria-selected="true"] {
+  color: var(--color-text);
+  /* Changes to black */
+  background-color: #FFFFFF;
+}
+
+/* Mileage Styles */
 .mileageField {
   flex: 1 1 280px;
-  max-width: 360px;
+  max-width: 320px;
 }
 
 .mileageGroup {
@@ -118,16 +177,33 @@
 
 .mileageInput:focus {
   outline: none;
-  background: var(--color-bg);
+  background: transparent;
 }
 
-.mileageDivider {
-  width: 1px;
-  flex-shrink: 0;
-  background: var(--color-border);
-  align-self: stretch;
+.mileageInputWrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
 }
 
+.mileagePrefix {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-text);
+  pointer-events: none;
+  white-space: pre;
+}
+
+.mileageInputWithPrefix {
+  padding-left: 0;
+}
+
+
+/* Search Button */
 .searchWrap {
   flex-shrink: 0;
   display: flex;
@@ -140,6 +216,7 @@
 }
 
 .search {
+  max-width: 156px;
   height: 44px;
   padding: 0 44px;
   font-family: var(--font-sans);
@@ -151,6 +228,7 @@
   border: none;
   border-radius: var(--radius-md);
   transition: background-color 0.15s ease;
+  cursor: pointer;
 }
 
 .search:hover {

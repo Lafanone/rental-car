@@ -67,7 +67,7 @@ export function CarCard({ car }: CarCardProps) {
       <p className={styles.details}>{line1}</p>
       <p className={styles.details}>{line2}</p>
 
-      <Link href={`/catalog/${car.id}`} className={styles.readMore}>
+      <Link href={`/catalog/${car.id}`} className={styles.readMore} target="_blank" rel="noopener noreferrer">
         Read more
       </Link>
     </article>

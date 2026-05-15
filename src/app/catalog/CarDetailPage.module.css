@@ -107,12 +107,6 @@
   color: var(--color-text);
 }
 
-.metaSep {
-  width: 1px;
-  height: 14px;
-  background: var(--color-border);
-}
-
 .priceHero {
   margin-top: 16px;
   margin-bottom: 0;

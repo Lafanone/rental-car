@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useState, useRef, useEffect } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import { getBrands } from "@/api/api";
 import type { FilterParams } from "@/types/car";
@@ -21,13 +22,35 @@ export function Filters({ onSearch }: FiltersProps) {
     queryFn: getBrands,
   });
 
+  // States for custom dropdowns
+  const [brandOpen, setBrandOpen] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState("");
+  
+  const [priceOpen, setPriceOpen] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState("");
+
+  // Refs to handle click outside
+  const brandRef = useRef<HTMLDivElement>(null);
+  const priceRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (brandRef.current && !brandRef.current.contains(event.target as Node)) {
+        setBrandOpen(false);
+      }
+      if (priceRef.current && !priceRef.current.contains(event.target as Node)) {
+        setPriceOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
 
-    const brand = String(fd.get("brand") ?? "").trim();
-    const price = String(fd.get("price") ?? "").trim();
     const minMileageRaw = String(fd.get("minMileage") ?? "").trim();
     const maxMileageRaw = String(fd.get("maxMileage") ?? "").trim();
 
@@ -35,8 +58,8 @@ export function Filters({ onSearch }: FiltersProps) {
     const maxMileage = maxMileageRaw ? Number(maxMileageRaw) : undefined;
 
     const next: FilterParams = {};
-    if (brand) next.brand = brand;
-    if (price) next.price = price;
+    if (selectedBrand) next.brand = selectedBrand;
+    if (selectedPrice) next.price = selectedPrice;
     if (minMileage != null && !Number.isNaN(minMileage)) next.minMileage = minMileage;
     if (maxMileage != null && !Number.isNaN(maxMileage)) next.maxMileage = maxMileage;
 
@@ -45,83 +68,122 @@ export function Filters({ onSearch }: FiltersProps) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="filter-brand">
+      {/* Brand Dropdown */}
+      <div className={styles.field} ref={brandRef}>
+        <label className={styles.label} id="filter-brand-label">
           Car brand
         </label>
-        <div className={styles.selectWrap}>
-          <select
-            id="filter-brand"
-            name="brand"
-            className={styles.select}
-            defaultValue=""
-            disabled={isPending}
-            aria-busy={isPending}
+        <div className={styles.customSelectWrap}>
+          <div 
+            className={`${styles.customSelect} ${brandOpen ? styles.isOpen : ""} ${isPending ? styles.disabled : ""}`}
+            onClick={() => !isPending && setBrandOpen(!brandOpen)}
+            aria-haspopup="listbox"
+            aria-expanded={brandOpen}
+            aria-labelledby="filter-brand-label"
           >
-            <option value="">Choose a brand</option>
-            {brands.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
-            ))}
-          </select>
-          <IoChevronDown className={styles.selectIcon} aria-hidden />
+            <span>{selectedBrand || "Choose a brand"}</span>
+            <IoChevronDown className={styles.selectIcon} aria-hidden />
+          </div>
+          {brandOpen && (
+            <ul className={styles.dropdownList} role="listbox">
+              <li 
+                className={styles.dropdownItem} 
+                onClick={() => { setSelectedBrand(""); setBrandOpen(false); }}
+                role="option"
+                aria-selected={selectedBrand === ""}
+              >
+                Choose a brand
+              </li>
+              {brands.map((b) => (
+                <li 
+                  key={b} 
+                  className={styles.dropdownItem} 
+                  onClick={() => { setSelectedBrand(b); setBrandOpen(false); }}
+                  role="option"
+                  aria-selected={selectedBrand === b}
+                >
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 
-      <div className={`${styles.field} ${styles.fieldPrice}`}>
-        <label className={styles.label} htmlFor="filter-price">
+      {/* Price Dropdown */}
+      <div className={`${styles.field} ${styles.fieldPrice}`} ref={priceRef}>
+        <label className={styles.label} id="filter-price-label">
           Price / 1 hour
         </label>
-        <div className={styles.selectWrap}>
-          <select
-            id="filter-price"
-            name="price"
-            className={styles.select}
-            defaultValue=""
+        <div className={styles.customSelectWrap}>
+          <div 
+            className={`${styles.customSelect} ${priceOpen ? styles.isOpen : ""}`}
+            onClick={() => setPriceOpen(!priceOpen)}
+            aria-haspopup="listbox"
+            aria-expanded={priceOpen}
+            aria-labelledby="filter-price-label"
           >
-            <option value="">Choose a price</option>
-            {PRICE_OPTIONS.map((p) => (
-              <option key={p} value={String(p)}>
-                {`$${p}`}
-              </option>
-            ))}
-          </select>
-          <IoChevronDown className={styles.selectIcon} aria-hidden />
+            <span>{selectedPrice ? `To ${selectedPrice}` : "Choose a price"}</span>
+            <IoChevronDown className={styles.selectIcon} aria-hidden />
+          </div>
+          {priceOpen && (
+            <ul className={styles.dropdownList} role="listbox">
+              <li 
+                className={styles.dropdownItem} 
+                onClick={() => { setSelectedPrice(""); setPriceOpen(false); }}
+                role="option"
+                aria-selected={selectedPrice === ""}
+              >
+                Choose a price
+              </li>
+              {PRICE_OPTIONS.map((p) => (
+                <li 
+                  key={p} 
+                  className={styles.dropdownItem} 
+                  onClick={() => { setSelectedPrice(String(p)); setPriceOpen(false); }}
+                  role="option"
+                  aria-selected={selectedPrice === String(p)}
+                >
+                  {p}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 
+      {/* Mileage Inputs (Unchanged) */}
       <div className={`${styles.field} ${styles.mileageField}`}>
         <span className={styles.label} id="mileage-label">
           Car mileage / km
         </span>
-        <div
-          className={styles.mileageGroup}
-          role="group"
-          aria-labelledby="mileage-label"
-        >
-          <input
-            className={styles.mileageInput}
-            name="minMileage"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            placeholder="From"
-            aria-label="Mileage from"
-          />
-          <span className={styles.mileageDivider} aria-hidden />
-          <input
-            className={styles.mileageInput}
-            name="maxMileage"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            placeholder="To"
-            aria-label="Mileage to"
-          />
+        <div className={styles.mileageGroup} role="group" aria-labelledby="mileage-label">
+          <div className={styles.mileageInputWrap}>
+            <span className={styles.mileagePrefix}>From </span>
+            <input
+              className={`${styles.mileageInput} ${styles.mileageInputWithPrefix}`}
+              name="minMileage"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              aria-label="Mileage from"
+            />
+          </div>
+          <div className={styles.mileageInputWrap}>
+            <span className={styles.mileagePrefix}>To </span>
+            <input
+              className={`${styles.mileageInput} ${styles.mileageInputWithPrefix}`}
+              name="maxMileage"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              aria-label="Mileage to"
+            />
+          </div>
         </div>
       </div>
 
+      {/* Submit Button (Unchanged) */}
       <div className={styles.searchWrap}>
         <div className={styles.searchSpacer} aria-hidden />
         <button type="submit" className={styles.search}>

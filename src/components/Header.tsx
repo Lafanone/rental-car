@@ -7,10 +7,10 @@ import styles from "./Header.module.css";
 export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const isCatalog = pathname.startsWith("/catalog");
+  const isCatalogList = pathname === "/catalog";
 
   return (
-    <header className={`${styles.header} ${isCatalog ? styles.headerCatalog : ""}`}>
+    <header className={`${styles.header} ${isHome ? styles.headerWhite : styles.headerGray}`}>
       <div className={styles.inner}>
         <Link href="/" className={styles.logo} aria-label="RentalCar home">
           <span className={styles.logoRental}>Rental</span>
@@ -25,7 +25,7 @@ export function Header() {
           </Link>
           <Link
             href="/catalog"
-            className={`${styles.navLink} ${isCatalog ? styles.navLinkActive : ""}`}
+            className={`${styles.navLink} ${isCatalogList ? styles.navLinkActive : ""}`}
           >
             Catalog
           </Link>

@@ -13,7 +13,7 @@ export default function Home() {
           priority
           sizes="100vw"
           className={styles.heroImage}
-          objectFit="cover"
+          style={{ objectFit: "cover" }}
         />
         <div className={styles.overlay} aria-hidden />
       </div>

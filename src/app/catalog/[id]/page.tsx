@@ -135,7 +135,6 @@ function CarDetailContent({ car, carId }: { car: Car; carId: string }) {
             <div className={styles.metaRow}>
               <IoLocationOutline className={styles.metaIcon} aria-hidden />
               <span>{locationLabel || "—"}</span>
-              <span className={styles.metaSep} aria-hidden />
               <span>{`Mileage: ${formatMileage(car.mileage)} km`}</span>
             </div>
             <p className={styles.priceHero}>{`$${car.rentalPrice}`}</p>

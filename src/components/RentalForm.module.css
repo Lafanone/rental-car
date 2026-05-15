@@ -1,8 +1,6 @@
 .card {
-  width: 100%;
-  max-width: 640px;
+  width: 640px;
   height: 488px;
-  margin-top: 24px;
   padding: 32px;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
@@ -64,7 +62,7 @@
 .textarea {
   min-height: 104px;
   padding: 12px 16px;
-  resize: vertical;
+  resize: none;
 }
 
 .input::placeholder,
