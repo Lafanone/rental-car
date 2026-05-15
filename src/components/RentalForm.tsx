@@ -24,6 +24,12 @@ export function RentalForm({ carId, fieldsOnly = false }: RentalFormProps) {
     setIsSubmitting(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 600));
+
+      if (!name.trim() || !email.trim() || !bookingDate) {
+        toast.error("Route not found");
+        return;
+      }
+
       toast.success("Booking request sent successfully!");
       setName("");
       setEmail("");
