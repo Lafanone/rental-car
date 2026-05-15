@@ -51,8 +51,14 @@ export function Filters({ onSearch }: FiltersProps) {
     const form = e.currentTarget;
     const fd = new FormData(form);
 
-    const minMileageRaw = String(fd.get("minMileage") ?? "").trim();
-    const maxMileageRaw = String(fd.get("maxMileage") ?? "").trim();
+    const minMileageRaw = String(fd.get("minMileage") ?? "")
+      .replace(/,/g, "")
+      .replace(/\s/g, "")
+      .trim();
+    const maxMileageRaw = String(fd.get("maxMileage") ?? "")
+      .replace(/,/g, "")
+      .replace(/\s/g, "")
+      .trim();
 
     const minMileage = minMileageRaw ? Number(minMileageRaw) : undefined;
     const maxMileage = maxMileageRaw ? Number(maxMileageRaw) : undefined;
@@ -163,9 +169,8 @@ export function Filters({ onSearch }: FiltersProps) {
             <input
               className={`${styles.mileageInput} ${styles.mileageInputWithPrefix}`}
               name="minMileage"
-              type="number"
+              type="text"
               inputMode="numeric"
-              min={0}
               aria-label="Mileage from"
             />
           </div>
@@ -174,9 +179,8 @@ export function Filters({ onSearch }: FiltersProps) {
             <input
               className={`${styles.mileageInput} ${styles.mileageInputWithPrefix}`}
               name="maxMileage"
-              type="number"
+              type="text"
               inputMode="numeric"
-              min={0}
               aria-label="Mileage to"
             />
           </div>

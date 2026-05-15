@@ -145,17 +145,6 @@
   background: var(--color-bg-input);
 }
 
-.mileageInput[type="number"] {
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.mileageInput::-webkit-outer-spin-button,
-.mileageInput::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .mileageInput {
   flex: 1;
   min-width: 0;
