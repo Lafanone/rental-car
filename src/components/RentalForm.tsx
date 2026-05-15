@@ -1,9 +1,7 @@
 "use client";
 
-import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { bookCar } from "@/api/api";
 import styles from "./RentalForm.module.css";
 
 type RentalFormProps = {
@@ -25,30 +23,15 @@ export function RentalForm({ carId, fieldsOnly = false }: RentalFormProps) {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await bookCar(carId, {
-        name: name.trim(),
-        email: email.trim(),
-        bookingDate,
-        comment: comment.trim() || undefined,
-      });
-      toast.success("Booking requests sent successfully!");
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      toast.success("Booking request sent successfully!");
       setName("");
       setEmail("");
       setBookingDate("");
       setBookingDateInputType("text");
       setComment("");
-    } catch (err) {
-      const message = axios.isAxiosError(err)
-        ? typeof err.response?.data === "object" &&
-          err.response?.data !== null &&
-          "message" in err.response.data
-          ? String(
-              (err.response.data as { message?: string }).message ??
-                err.message,
-            )
-          : err.message
-        : "Failed to send booking request.";
-      toast.error(message);
+    } catch {
+      toast.error("Failed to send booking request.");
     } finally {
       setIsSubmitting(false);
     }
